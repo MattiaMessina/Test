@@ -156,12 +156,12 @@ https://devdev.it/guida-gitflow/come-funziona-gitflow-branch-develop-e-master/
 #### Per creare una nuova funzionalità (feature) parto dal ramo develop e creo un nuovo ramo con lo sviluppo della funzione:
 - git checkout develop
 - git checkout -b feature/nome_funzione
-Oppure con git-flow:
+###### Oppure con git-flow:
 - git flow feature start nome_funzione
 #### Dopo aver creato la funzione la mergiamo col ramo develop:
 - git checkout develop
 - git merge feature/nuova_funzione
-Oppure con git-flow:
+###### Oppure con git-flow:
 - git flow feature finish feature/nuova_funzione
 
 <br>
@@ -169,7 +169,7 @@ Oppure con git-flow:
 #### Quando dopo diverse funzioni siamo pronti a rilasciare la nuova versione da develop a master, primacreo un ramo release di develop per gli ultimi fix:
 - git checkout develop
 - git checkout -b release/1.2
-Oppure con git-flow:
+###### Oppure con git-flow:
 - git flow release start 1.2
 #### Dopo i bugfix siamo pronti a rilasciare larelease sul ramo di produzione master:
 - git checkout develop
@@ -178,7 +178,7 @@ Oppure con git-flow:
 - git merge release/1.2
 - git tag 1.2
 - git branch -D release/1.2
-Oppure con git-flow:
+###### Oppure con git-flow:
 - git flow release finish '1.2'
 
 <br>
@@ -186,7 +186,7 @@ Oppure con git-flow:
 #### I rami di hotfix sono creati sul ramo master per gestire i bug che sono in produzione nel minor tempo possibile:
 - git checkout master
 - git checkout -b hotfix/nome_bug
-Oppure con git-flow:
+###### Oppure con git-flow:
 - git flow hotfix start nome_bug
 #### Dopo il fix carichiamo la versione senza bug sul ramo principale:
 - git checkout master
@@ -195,5 +195,5 @@ Oppure con git-flow:
 - git checkout develop
 - git merge hotfix/nome_bug
 - git branch -D hotfix/nome_bug
-Oppure con git-flow:
+###### Oppure con git-flow:
 - git flow hotfix finish nome_bug
