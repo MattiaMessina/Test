@@ -1,53 +1,136 @@
-# Test
+# GIT
+https://devdev.it/guida-git-versioning/come-funziona-git-controllo-versione/
 
-### Per uploadare:
+<br>
+
+#### Per uploadare successivamente un progetto che ho in locale prima creo dentro la sua cartella la cartella .git che contiene tutti i file per operare con git:
+git init
+
+<br>
+
+#### Per uploadare:
 1. git add --all
 2. git commit -m "messaggio"
 3. git push
 
-<br><br>
+<br>
 
-### Per mettere o togliere il proxy:
+#### Per mettere o togliere il proxy:
 - git config --global --unset http.proxy
 - git config --global http.proxy http://proxy.ariadne.it:3128
 
-<br><br>
+<br>
 
-### Per clonare una repository online sul locale:
+#### Per clonare una repository online sul locale:
 - git clone https://percorso/cartella.git
 
-<br><br>
+<br>
 
-### Per aggiungere i cambiamenti effettuati alla cartella:
+#### Per tracciare uno o più file e quindi farne seguire a git le future modifiche (inserisco i file nell'area di stage):
 - git add file.txt
 - git add --all
+#### Per non tracciare più un file (la sua ultima versione tracciata viene ancora committata):
+- git rm file.txt
+#### Per togliere dall'area di stage un file (non viene più committato):
+- git rm --cached file.txt
+#### Se vogliamo mantenere e non tracciare un file, inseriamo il suo nome nel file .gitignore
 
-<br><br>
+<br>
 
-### Commit con parametro messaggio:
-- git commit -m "inserisco il mio messaggio"
-### Commit per modificare l'ultimo effettuato senza aggiungerne un altro nei log:
+#### Per salvare lo stato attuale del progetto (tutto quello che è presente nell'area di stage) e creare una uova istantanea (snapshot):
+- git commit -m "messaggio con la sintesi delle modifiche"
+#### Commit per modificare l'ultimo effettuato senza aggiungerne un altro nei log:
 - git commit --amend
 
-<br><br>
+<br>
 
-### Per sapere lo stato del sistema e il log dei commit:
-- git status
+#### Per vedere le ultime modifiche ai file (opzione --stage per vedere le differenze con file nello stage):
+- git diff
+
+<br>
+
+#### Per passare a una versione passata o ad un branch del progetto (l'id si legge quando si fa il commit):
+- git checkout id_versione
+#### Per tornare alla versione principale:
+- git checkout master
+
+<br>
+
+#### Per creare un nuovo ramo e poi spostarci dentro:
+- git branch nome_ramo
+- git checkout nome_ramo
+#### Se facciamo un commit in questa cartella di lavoro modifichiamo solo questo branch.
+#### Per vedere la lista dei rami non uniti:
+- git branch --no-merged
+
+<br>
+
+#### Lista dei rami:
+- git branch
+#### Cancellare un ramo
+- git branch -d nome_ramo
+
+<br>
+
+#### Cronologia dei commit
 - git log
+#### Diverse opzioni per visualizzare solo il messaggio dei commit in una riga, vedere solo gli ultimi 3 commit o cercarli per data:
+- git log --pretty=onneline -3 --since=1week
 
-<br><br>
+<br>
 
-### Per mettere da parte le modifiche prima di un commit e riprenderle:
+#### Per sapere lo stato della mia cartella di lavoro  locale:
+- git status
+
+<br>
+
+#### Per unire un ramo al ramo master principale prima bisogna spostarsi sul ramo principale e poi mergiarlo (l'opzione indica di inserire questo merge in un commit in modo da non perderne la cronologia):
+- git checkout master
+- git merge --no-ff nome_ramo
+
+<br>
+
+#### Per vedere la lista dei tag o per visualizzare le info di un tag:
+- git tag
+- git show nome_tag
+#### Per dare un tag lightweight (semplice) o annotated (cioè con le informazioni sull'autore, il nome del tag, la data e un messaggio):
+- git tag nome_tag
+- git tag -a nome_tag -m "messaggio"
+#### Per dare un tag ad un vecchio commit:
+- git tag -a nome_tag id_commit
+
+<br>
+
+#### Per ripristinare una versione precedente:
+- git revert id_commit
+
+<br>
+
+#### Per visualizzare l'origine del server remoto (i server hanno un nome e un URL che può essere http o ssh a seconda del sistema; sono divisi in fetch e push, i push permettono l’invio di modifiche, mentre fetch significa che possiamo scaricare dati da quel server):
+- git remote -v
+#### Per aggiungere una connessione ad un server remoto e per rimuoverla:
+- git remote add nome_server url_server
+- git remote rm nome_server
+
+<br>
+
+#### Per scaricare i commit remoti (visualizzare lo stato del progetto) senza intaccare la cartella locale:
+- git fetch <remote>
+- git fetch <remote> <nome_ramo>
+
+<br>
+
+#### Per fare il merge nel locale di una cartella remota (scaricare e mergiare):
+- git pull <remote>
+- git fetch + git merge
+
+<br>
+
+#### Per uploadare le modifiche fatte in locale sul server remoto:
+- git push <remote> <nome_ramo> --tags
+
+<br>
+
+#### Per mettere da parte le modifiche prima di un commit e riprenderle:
 - git stash
 - git stash pop
-
-<br><br>
-
-### Per uploadare le modifiche fatte in locale:
-- git push <remote> <branch>
-
-<br><br>
-
-### Per scaricare la cartella remota
-- git pull
-- git fetch + git merge
