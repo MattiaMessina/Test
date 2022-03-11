@@ -59,6 +59,8 @@ git init
 #### Per creare un nuovo ramo e poi spostarci dentro:
 - git branch nome_ramo
 - git checkout nome_ramo
+#### Per caricare sulla cartella remota il nuovo ramo:
+- git push -u nome_server nome_ramo
 #### Se facciamo un commit in questa cartella di lavoro modifichiamo solo questo branch.
 #### Per vedere la lista dei rami non uniti:
 - git branch --no-merged
@@ -106,7 +108,7 @@ git init
 
 <br>
 
-#### Per visualizzare l'origine del server remoto (i server hanno un nome e un URL che può essere http o ssh a seconda del sistema; sono divisi in fetch e push, i push permettono l’invio di modifiche, mentre fetch significa che possiamo scaricare dati da quel server):
+#### Per visualizzare il nome e l'url del server remoto (l'url può essere http o ssh a seconda del sistema; sono divisi in fetch e push, i push permettono l’invio di modifiche, mentre fetch significa che possiamo scaricare dati da quel server):
 - git remote -v
 #### Per aggiungere una connessione ad un server remoto e per rimuoverla:
 - git remote add nome_server url_server
@@ -115,22 +117,83 @@ git init
 <br>
 
 #### Per scaricare i commit remoti (visualizzare lo stato del progetto) senza intaccare la cartella locale:
-- git fetch <remote>
-- git fetch <remote> <nome_ramo>
+- git fetch nome_server
+- git fetch nome_server nome_ramo
 
 <br>
 
 #### Per fare il merge nel locale di una cartella remota (scaricare e mergiare):
-- git pull <remote>
+- git pull nome_server
 - git fetch + git merge
 
 <br>
 
 #### Per uploadare le modifiche fatte in locale sul server remoto:
-- git push <remote> <nome_ramo> --tags
+- git push nome_server nome_ramo --tags
 
 <br>
 
 #### Per mettere da parte le modifiche prima di un commit e riprenderle:
 - git stash
 - git stash pop
+
+<br>
+
+
+
+
+
+# GIT-FLOW
+https://devdev.it/guida-gitflow/come-funziona-gitflow-branch-develop-e-master/
+
+<br>
+
+#### Inizializzare l'ambiente git-flow:
+- git flow init
+
+<br>
+
+#### Per creare una nuova funzionalità (feature) parto dal ramo develop e creo un nuovo ramo con lo sviluppo della funzione:
+- git checkout develop
+- git checkout -b feature/nome_funzione
+Oppure con git-flow:
+- git flow feature start nome_funzione
+#### Dopo aver creato la funzione la mergiamo col ramo develop:
+- git checkout develop
+- git merge feature/nuova_funzione
+Oppure con git-flow:
+- git flow feature finish feature/nuova_funzione
+
+<br>
+
+#### Quando dopo diverse funzioni siamo pronti a rilasciare la nuova versione da develop a master, primacreo un ramo release di develop per gli ultimi fix:
+- git checkout develop
+- git checkout -b release/1.2
+Oppure con git-flow:
+- git flow release start 1.2
+#### Dopo i bugfix siamo pronti a rilasciare larelease sul ramo di produzione master:
+- git checkout develop
+- git merge release/1.2
+- git checkout master
+- git merge release/1.2
+- git tag 1.2
+- git branch -D release/1.2
+Oppure con git-flow:
+- git flow release finish '1.2'
+
+<br>
+
+#### I rami di hotfix sono creati sul ramo master per gestire i bug che sono in produzione nel minor tempo possibile:
+- git checkout master
+- git checkout -b hotfix/nome_bug
+Oppure con git-flow:
+- git flow hotfix start nome_bug
+#### Dopo il fix carichiamo la versione senza bug sul ramo principale:
+- git checkout master
+- git merge hotfix/nome_bug
+- git tag 1.2.1
+- git checkout develop
+- git merge hotfix/nome_bug
+- git branch -D hotfix/nome_bug
+Oppure con git-flow:
+- git flow hotfix finish nome_bug
